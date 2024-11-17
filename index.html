@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Retail Management System</title>
+    <!--FAVICON-->
+    <link rel="shortcut icon" href="./assets/shop.png" type="image/x-icon">
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!--CSS-->
+    <link rel="stylesheet" href="styles.css">
+    <!-- JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <!-- WRAPPER BEGINS -->
+    <div class="wrapper">
+
+      <!--MENU ICON FOR MOBILE NAV-->
+      <img class="mobile-nav-icon" id="menuIcon" src="./assets/menu icon.png" alt="menu icon">
+
+      <!-- TOP NAVIGATION BAR -->
+      <div class="top-nav">
+        <img class="mobile-close-icon" id="menuCloseIcon" src="./assets/close icon (2).png" alt="menu icon">
+        <ul>
+          <li>
+            <div class="top-nav-link">
+              <img class="icon" src="./assets/product icon.png" alt="product icon">
+              <a href="#" id="productTopLink">Products</a>
+            </div>
+          </li>
+          <li>
+            <div class="top-nav-link">
+              <img class="icon" src="./assets/customer icon.png" alt="customer icon">
+              <a href="#" id="customerTopLink">Customers</a>
+            </div>
+          </li>
+          <li>
+            <div class="top-nav-link">
+              <img class="icon" src="./assets/order icon.png" alt="order icon">
+              <a href="#" id="orderTopLink">Orders</a>
+            </div> 
+          </li>
+          <li>
+            <div class="top-nav-link">
+              <img class="icon" src="./assets/promo icon.png" alt="promo icon">
+              <a href="#" id="promotionTopLink">Promotions</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SIDEBAR NAVIGATION -->
+      <div class="sidebar">
+        <ul>
+          <li>
+            <div class="link">
+              <img class="icon" src="./assets/product icon.png" alt="product icon">
+              <a href="#" id="productLink">Products</a>
+            </div>
+          </li>
+          <li>
+            <div class="link">
+              <img class="icon" src="./assets/customer icon.png" alt="customer icon">
+              <a href="#" id="customerLink">Customers</a>
+            </div>
+          </li>
+          <li>
+            <div class="link">
+              <img class="icon" src="./assets/order icon.png" alt="order icon">
+              <a href="#" id="orderLink">Orders</a>
+            </div> 
+          </li>
+          <li>
+            <div class="link">
+              <img class="icon" src="./assets/promo icon.png" alt="promo icon">
+              <a href="#" id="promotionLink">Promotions</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- MAIN CONTENT SECTION -->
+      <div class="content">
+
+        <!-- WELCOME SECTION -->
+        <div class="welcome-section">
+          <h3 id="welcomeMsg" class="welcome-message"></h3>
+          <p>Welcome! Please select an option from the menu to get started</p>
+        </div>
+
+        <!-- PRODUCT SECTION -->
+        <div class="product-section">
+          <h2>Add Product</h2>
+          <form id="productForm">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="number" id="productPrice" placeholder="Price" required min="0">
+            <input type="number" id="productStock" placeholder="Stock" required min="0">
+            <label for="productOnSale">
+              <input type="checkbox" id="productOnSale"> On Sale
+            </label>
+            <input type="number" id="productSalePercentage" placeholder="Sale Percentage" min="0" max="100" disabled>
+            <button type="submit">Add Product</button>
+          </form>
+
+          <h3>Product List</h3>
+          <div class="table-container">
+            <table id="productTable">
+              <thead>
+                <tr>
+                  <th>Product ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>On Sale</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CUSTOMER SECTION -->
+        <div class="customer-section">
+          <h2>Add Customer</h2>
+          <form id="customerForm">
+            <input type="text" id="customerName" placeholder="Customer Name" required>
+            <input type="text" id="customerPreferences" placeholder="Preferences (comma-separated)">
+            <button type="submit">Add Customer</button>
+          </form>
+
+          <h3>Customer List</h3>
+          <div class="table-container">
+            <table id="customerTable">
+              <thead>
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Name</th>
+                  <th>Orders</th>
+                  <th>Preferences</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="customerBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ORDER SECTION -->
+        <div class="order-section">
+          <h2>Create Order</h2>
+          <form id="orderForm" class="order-form">
+            <label for="orderCustomerId">Select Customer:</label>
+            <select id="orderCustomerId"></select>
+            <span>*New customers must be added via Customer form first*</span>
+            <label for="orderProductId">Select Products:</label>
+            <select id="orderProductId" multiple required></select>
+            <span>*Select multiple items for order*</span>
+            <button type="submit">Place Order</button>
+          </form>
+
+          <!-- EDIT ORDER FORM CONTAINER -->
+          <div id="editOrderFormContainer" style="display: none;">
+            <h3>Edit Order</h3>
+            <form id="editOrderForm">
+              <input type="hidden" id="editOrderId">
+              <label for="editCustomerId">Select Customer:</label>
+              <select id="editCustomerId" required></select>
+              <label for="editProductIds">Select Products:</label>
+              <select id="editProductIds" multiple required></select>
+              <button type="submit">Update Order</button>
+            </form>
+          </div>
+
+          <h3>Order List</h3>
+          <div class="table-container">
+            <table id="orderTable">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Order Date</th>
+                  <th>Customer</th>
+                  <th>Products</th>
+                  <th>Order Total</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="orderBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ORDER DELETE MODAL -->
+        <div class="modal-background">
+          <div id="orderDeleteModal" class="order-delete-modal">
+            <p>Are you sure you want to delete this order?</p>
+            <button id="yesDelete">Yes</button>
+            <button id="noDelete">No</button>
+          </div>
+        </div>
+
+        <!-- PROMOTION SECTION -->
+        <div class="promo-section">
+          <h2>Add Promotion</h2>
+          <form id="promotionForm">
+            <label for="promoProductId">Select Product:</label>
+            <select id="promoProductId" required></select> 
+            <input type="number" id="promoDiscount" placeholder="Discount Percentage" required min="0" max="100">
+            <label for="promoStartDate">Start Date:</label>
+            <input type="date" id="promoStartDate" required>
+            <label for="promoEndDate">End Date:</label>
+            <input type="date" id="promoEndDate" required>
+            <button type="submit">Add Promotion</button>
+          </form>
+
+          <h3>Promotion List</h3>
+          <div class="table-container">
+            <table id="promoTable">
+              <thead>
+                <tr>
+                  <th>Promo ID</th>
+                  <th>Product ID</th>
+                  <th>Discount</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="promoBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div> 
+      <!-- END OF CONTENT -->
+    </div> 
+    <!-- END OF WRAPPER -->
+
+    <!--JAVASCRIPT-->
+    <script src="script.js"></script>
+  </body>
+</html>
